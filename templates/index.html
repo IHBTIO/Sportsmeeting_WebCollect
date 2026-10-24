@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校运动会报名</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <h1>校运动会报名</h1>
+      <p class="subtitle">每人最多报名 <b id="maxEventsTxt">2</b> 个项目</p>
+    </header>
+
+    <div id="noticeBox" class="marquee-container" style="display:none;">
+      <div id="marqueeText" class="marquee-text"></div>
+    </div>
+
+    <div id="statusBanner" class="banner banner-info">正在检查报名状态...</div>
+
+    <form id="regForm" class="card" novalidate>
+      <div class="form-row">
+        <div class="field">
+          <label for="department">学部 <span class="req">*</span></label>
+          <select id="department" name="department" required>
+            <option value="">请选择学部</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="className">班级 <span class="req">*</span></label>
+          <select id="className" name="class_name" required disabled>
+            <option value="">请先选择学部</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="name">姓名 <span class="req">*</span></label>
+          <input id="name" name="name" type="text" maxlength="20" placeholder="请输入真实姓名" autocomplete="off" required>
+        </div>
+        <div class="field">
+          <label>性别 <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio"><input type="radio" name="gender" value="男"><span>男</span></label>
+            <label class="radio"><input type="radio" name="gender" value="女"><span>女</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>参赛项目 <span class="req">*</span> <span class="hint">最多选 <b id="maxEvents">2</b> 项</span></label>
+        <div id="eventList" class="checkbox-group"></div>
+        <p class="counter">已选 <b id="selectedCount">0</b> 项</p>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">提 交 报 名</button>
+      <div id="message" class="message"></div>
+    </form>
+
+    <footer class="footer">
+      <a href="/query">🔍 报名查询</a> <span class="footer-sep">·</span> <a href="/admin">后台管理</a>
+    </footer>
+  </div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

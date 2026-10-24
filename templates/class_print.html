@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>班级报名表 - {{ class_name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    @media print { .no-print { display: none !important; } body { background: #fff; padding: 0; } .card { box-shadow: none; border: none; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="no-print toolbar" style="margin:20px 0; text-align:center;">
+      <button onclick="window.print()" class="btn btn-primary">🖨 打印 / 另存为 PDF</button>
+    </div>
+    <div class="card">
+      <h1 style="text-align:center;">运动会报名表</h1>
+      <h3 style="text-align:center; margin-bottom:20px;">班级：{{ class_name }} &nbsp;&nbsp; 人数：<span id="stuCount">0</span> 人</h3>
+      <table class="data-table" style="width:100%; border:1px solid #000;">
+        <thead><tr>
+          <th style="border:1px solid #000; text-align:center;">序号</th><th style="border:1px solid #000; text-align:center;">姓名</th>
+          <th style="border:1px solid #000; text-align:center;">性别</th><th style="border:1px solid #000; text-align:center;">参赛项目</th>
+          <th style="border:1px solid #000; text-align:center; width:120px;">备注</th>
+        </tr></thead>
+        <tbody id="printBody"></tbody>
+      </table>
+      <div style="margin-top:40px; display:flex; justify-content:space-between;">
+        <span>班主任签字：____________________</span><span>日期：______年____月____日</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var cls = "{{ class_name }}";
+      fetch('/api/admin/data?class_name=' + encodeURIComponent(cls), {credentials:'same-origin'})
+        .then(r => r.json()).then(data => {
+          if (!data.ok) return alert(data.message);
+          document.getElementById('stuCount').textContent = data.total;
+          var tbody = document.getElementById('printBody');
+          if (!data.total) return tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px;">无报名</td></tr>';
+          data.records.forEach((r, i) => {
+            tbody.innerHTML += `<tr>
+              <td style="border:1px solid #000; text-align:center; padding:8px;">${i+1}</td>
+              <td style="border:1px solid #000; text-align:center; padding:8px;">${r.name}</td>
+              <td style="border:1px solid #000; text-align:center; padding:8px;">${r.gender}</td>
+              <td style="border:1px solid #000; padding:8px;">${r.events.replace(/,/g,'、')}</td>
+              <td style="border:1px solid #000;"></td>
+            </tr>`;
+          });
+        });
+    })();
+  </script>
+</body>
+</html>

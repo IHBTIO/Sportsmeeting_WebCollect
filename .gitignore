@@ -1,0 +1,26 @@
+# 数据库文件
+sports_meet.db
+sports_meet.db-wal
+sports_meet.db-shm
+backup_*
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# 虚拟环境
+venv/
+.venv/
+
+# PyInstaller 打包生成的临时文件
+build/
+dist/
+*.spec
+
+# IDE 文件
+.vscode/
+.idea/
+.DS_Store

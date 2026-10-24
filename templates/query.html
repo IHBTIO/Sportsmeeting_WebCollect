@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>报名查询</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="page">
+    <header class="header"><h1>报名查询</h1></header>
+    <section class="card">
+      <div class="form-row">
+        <div class="field"><label>学部</label><select id="qDept"><option value="">请选择</option></select></div>
+        <div class="field"><label>班级</label><select id="qClass" disabled><option value="">请先选择学部</option></select></div>
+      </div>
+      <div class="field"><label>姓名</label><input id="qName" type="text" maxlength="20" placeholder="姓名"></div>
+      <button id="queryBtn" class="btn-submit" type="button">查 询</button>
+      <div id="message" class="message"></div>
+    </section>
+    <section id="resultBox" class="card" style="display:none;"><div id="resultBody"></div></section>
+    <footer class="footer"><a href="/">← 返回报名</a></footer>
+  </div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
